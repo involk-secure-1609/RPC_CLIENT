@@ -18,6 +18,7 @@ export default class Producer {
       {
         replyTo: this.replyqueueName,
         correlationId: uuid,
+        expiration: 10,
         headers: {
           function: data.operation,
         },
@@ -25,7 +26,9 @@ export default class Producer {
     );
     return new Promise((resolve, reject) => {
       this.eventEmitter.once(uuid, async (data) => {
-        const reply = JSON.parse(data).toString();
+        console.log(data);
+        // const newData=new Buffer(data.content).toString();
+        const reply =JSON.parse(data.toString());
         resolve(reply);
       });
     });

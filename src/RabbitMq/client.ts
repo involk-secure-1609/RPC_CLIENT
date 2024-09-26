@@ -10,11 +10,13 @@ class RabbitMQClient {
 
   private static instance: RabbitMQClient;
   private isInitialzed: boolean = false;
+  
   private producer: Producer;
   private consumer: Consumer;
   private connection: Connection;
   private producerChannel: Channel;
   private consumerChannel: Channel;
+
   private eventEmitter: EventEmitter;
   public static getInstance() {
     if (!this.instance) {

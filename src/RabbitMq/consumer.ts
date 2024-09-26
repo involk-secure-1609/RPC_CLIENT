@@ -4,18 +4,18 @@ import config from "../config";
 export default class Consumer {
   constructor(
     private channel: Channel,
-    private replyqueueName: string,
+    private replyQueueName: string,
     private eventEmitter: EventEmitter
   ) {}
 
   async consumeMessages() {
     console.log("Ready to consume messages..");
     this.channel.consume(
-      this.replyqueueName,
+      this.replyQueueName,
       (msg: ConsumeMessage | null) => {
         if (msg) {
           console.log("Received message: ", msg.content.toString());
-          this.eventEmitter.emit(msg.properties.correlationId.toString(), msg);
+          this.eventEmitter.emit(msg.properties.correlationId.toString(), msg.content.toString());
         } else {
           console.log("Received empty message");
         }
